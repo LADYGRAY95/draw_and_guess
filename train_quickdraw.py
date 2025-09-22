@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 
 # -------------------------
-# 1️⃣ Categories
+#  Categories
 # -------------------------
 categories = [
     "apple", "airplane", "banana", "cat", "dog",
@@ -15,7 +15,7 @@ categories = [
 ]
 
 # -------------------------
-# 2️⃣ Download data if missing
+#  Download data if missing
 # -------------------------
 def download_if_missing(cat):
     url = f"https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/{cat}.npy"
@@ -30,7 +30,7 @@ for cat in categories:
     download_if_missing(cat)
 
 # -------------------------
-# 3️⃣ Load and preprocess data
+#  Load and preprocess data
 # -------------------------
 def load_data(categories, samples_per_class=20000):  # larger subset
     X, y = [], []
@@ -48,7 +48,7 @@ X = X.reshape(-1,28,28,1).astype("float32") / 255.0
 y = tf.keras.utils.to_categorical(y, num_classes=len(categories))
 
 # -------------------------
-# 4️⃣ Train/Test split
+# Train/Test split
 # -------------------------
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, stratify=y, random_state=42
@@ -58,7 +58,7 @@ X_train, X_val, y_train, y_val = train_test_split(
 )
 
 # -------------------------
-# 5️⃣ Data augmentation (train only)
+# Data augmentation (train only)
 # -------------------------
 datagen = ImageDataGenerator(
     rotation_range=15,
@@ -70,7 +70,7 @@ datagen = ImageDataGenerator(
 train_gen = datagen.flow(X_train, y_train, batch_size=64)
 
 # -------------------------
-# 6️⃣ Build CNN
+#  Build CNN
 # -------------------------
 model = models.Sequential([
     layers.Input(shape=(28,28,1)),
@@ -98,7 +98,7 @@ model.compile(
 )
 
 # -------------------------
-# 7️⃣ Train
+# Train
 # -------------------------
 epochs = 20
 model.fit(
@@ -108,13 +108,13 @@ model.fit(
 )
 
 # -------------------------
-# 8️⃣ Evaluate
+# Evaluate
 # -------------------------
 loss, acc = model.evaluate(X_test, y_test)
 print(f"✅ Test Accuracy: {acc:.2f}")
 
 # -------------------------
-# 9️⃣ Save model & categories
+# Save model & categories
 # -------------------------
 model.save("draw_model_advanced.keras")
 with open("categories.txt","w") as f:
