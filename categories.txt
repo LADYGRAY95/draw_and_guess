@@ -1,0 +1,10 @@
+apple
+airplane
+banana
+cat
+dog
+car
+chair
+clock
+house
+tree
