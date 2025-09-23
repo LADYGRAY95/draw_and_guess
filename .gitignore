@@ -1,0 +1,8 @@
+# Ignore training data
+*.npy
+
+# Ignore Python cache & venv
+__pycache__/
+*.pyc
+venv/
+.env/
