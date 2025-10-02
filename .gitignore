@@ -1,5 +1,3 @@
-# Ignore training data
-*.npy
 
 # Ignore Python cache & venv
 __pycache__/
